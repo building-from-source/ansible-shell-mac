@@ -7,6 +7,7 @@
     state: installed
   loop:
     - zsh-autosuggestions
+    - zsh-completions
 
 - name: enable zsh-autosuggestions
   lineinfile:
@@ -14,4 +15,16 @@
     create: yes
     owner: "{{ ansible_env.USER }}"
     mode: 0600
-    line: source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    line: source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh  blockinfile:
+    path: "{{ ansible_env.HOME }}/.zprofile"
+    marker: "# {mark} - enable zsh-completions - ANSIBLE MANAGED BLOCK"
+    create: yes
+    owner: "{{ ansible_env.USER }}"
+    mode: 0600
+    block: |
+      if type brew &>/dev/null; then
+        FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+        autoload -Uz compinit
+        compinit
+      fi      

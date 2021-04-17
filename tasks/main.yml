@@ -8,6 +8,7 @@
   loop:
     - zsh-autosuggestions
     - zsh-completions
+    - zsh-syntax-highlighting
 
 - name: enable zsh-autosuggestions
   blockinfile:
@@ -29,3 +30,13 @@
     block: |
       autoload -Uz compinit
       compinit
+
+- name: enable zsh-syntax-highlighting
+  blockinfile:
+    path: "{{ ansible_env.HOME }}/.zprofile"
+    marker: "# {mark} - enable zsh-syntax-highlighting - ANSIBLE MANAGED BLOCK"
+    create: yes
+    owner: "{{ ansible_env.USER }}"
+    mode: 0600
+    block: |
+      source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

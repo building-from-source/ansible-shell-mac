@@ -9,7 +9,7 @@
     - zsh-autosuggestions
 
 - name: create ~/.zprofile
-  blockinfile:
+  lineinfile:
     path: "{{ ansible_env.HOME }}/.zprofile"
     create: yes
     owner: "{{ ansible_env.USER }}"

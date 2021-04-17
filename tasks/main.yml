@@ -1,0 +1,15 @@
+
+- name: Ensure zsh-autosuggestions is installed
+  homebrew:
+    name: "{{ item }}"
+    state: installed
+  loop:
+    - zsh-autosuggestions
+
+- name: create ~/.zprofile
+  blockinfile:
+    path: "{{ ansible_env.HOME }}/.zprofile"
+    create: yes
+    owner: "{{ ansible_env.USER }}"
+    mode: 0600
+    line: source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh

@@ -1,7 +1,7 @@
 ---
 # tasks file for ansible-shell-mac
 
-- name: Ensure zsh-autosuggestions is installed
+- name: Ensure zsh dependencies are installed
   homebrew:
     name: "{{ item }}"
     state: installed

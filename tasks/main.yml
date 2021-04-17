@@ -40,3 +40,13 @@
     mode: 0600
     block: |
       source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+- name: enable dircolors
+  blockinfile:
+    path: "{{ ansible_env.HOME }}/.zprofile"
+    marker: "# {mark} - enable dircolors - ANSIBLE MANAGED BLOCK"
+    create: yes
+    owner: "{{ ansible_env.USER }}"
+    mode: 0600
+    block: |
+      export CLICOLOR=1

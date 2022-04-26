@@ -10,43 +10,56 @@
     - zsh-completions
     - zsh-syntax-highlighting
 
-- name: enable zsh-autosuggestions
+- name: Intel Mac - ~/.zprofile
   blockinfile:
     path: "{{ ansible_env.HOME }}/.zprofile"
-    marker: "# {mark} - enable zsh-autosuggestions - ANSIBLE MANAGED BLOCK"
+    marker: "# {mark} - Intel Mac - ~/.zprofile - ANSIBLE MANAGED BLOCK"
     create: yes
     owner: "{{ ansible_env.USER }}"
     mode: 0600
     block: |
+      # custom greeting
+      echo Welcome back $(whoami)!
+      echo Uptime: $(uptime)
+      echo IP: $(ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -d\  -f2)
+
+      # enable dircolors
+      export CLICOLOR=1
+
+      # enable zsh-autosuggestions
       source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-- name: enable zsh-completions
-  blockinfile:
-    path: "{{ ansible_env.HOME }}/.zprofile"
-    marker: "# {mark} - enable zsh-completions - ANSIBLE MANAGED BLOCK"
-    create: yes
-    owner: "{{ ansible_env.USER }}"
-    mode: 0600
-    block: |
-      autoload -Uz compinit
-      compinit
-
-- name: enable zsh-syntax-highlighting
-  blockinfile:
-    path: "{{ ansible_env.HOME }}/.zprofile"
-    marker: "# {mark} - enable zsh-syntax-highlighting - ANSIBLE MANAGED BLOCK"
-    create: yes
-    owner: "{{ ansible_env.USER }}"
-    mode: 0600
-    block: |
+      # enable zsh-syntax-highlighting
       source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-- name: enable dircolors
+      # enable zsh-completions
+      autoload -Uz compinit
+      compinit
+  when: ansible_facts['architecture'] != "arm64" and ansible_facts['os_family'] == "Darwin"
+
+- name: Apple Silicon - ~/.zprofile
   blockinfile:
     path: "{{ ansible_env.HOME }}/.zprofile"
-    marker: "# {mark} - enable dircolors - ANSIBLE MANAGED BLOCK"
+    marker: "# {mark} - Apple Silicon - ~/.zprofile - ANSIBLE MANAGED BLOCK"
     create: yes
     owner: "{{ ansible_env.USER }}"
     mode: 0600
     block: |
+      # custom greeting
+      echo Welcome back $(whoami)!
+      echo Uptime: $(uptime)
+      echo IP: $(ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -d\  -f2)
+
+      # enable dircolors
       export CLICOLOR=1
+
+      # enable zsh-autosuggestions
+      source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+      # enable zsh-syntax-highlighting
+      source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+      # enable zsh-completions
+      autoload -Uz compinit
+      compinit
+  when: ansible_facts['architecture'] == "arm64" and ansible_facts['os_family'] == "Darwin"

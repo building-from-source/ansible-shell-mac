@@ -10,13 +10,13 @@
     - zsh-completions
     - zsh-syntax-highlighting
 
-- name: ~/.zprofile
+- name: ~/.zshrc
   blockinfile:
-    path: "{{ ansible_env.HOME }}/.zprofile"
-    marker: "# {mark} ~/.zprofile - ANSIBLE MANAGED BLOCK"
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    marker: "# {mark} ~/.zshrc - ANSIBLE MANAGED BLOCK"
     create: yes
     owner: "{{ ansible_env.USER }}"
-    mode: 0600
+    mode: 0644
     block: |
       # Set architecture-specific brew share path.
       arch_name="$(uname -m)"
@@ -33,6 +33,9 @@
       echo Uptime: $(uptime)
       echo IP: $(ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -d\  -f2)
 
+      # Tell homebrew to not autoupdate every single time I run it (just once a week).
+      export HOMEBREW_AUTO_UPDATE_SECS=604800
+
       # enable dircolors
       export CLICOLOR=1
 
@@ -43,5 +46,4 @@
       source ${share_path}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
       # enable zsh-completions
-      autoload -Uz compinit
-      compinit
+      autoload -Uz compinit && compinit

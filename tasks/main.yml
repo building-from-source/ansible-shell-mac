@@ -28,6 +28,9 @@
           echo "Unknown architecture: ${arch_name}"
       fi
 
+      # set promt
+      export PS1=% PROMPT='%n @ %~ %# '
+
       # custom greeting
       echo Welcome back $(whoami)!
       echo Uptime: $(uptime)

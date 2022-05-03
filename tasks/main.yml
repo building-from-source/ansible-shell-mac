@@ -10,14 +10,24 @@
     - zsh-completions
     - zsh-syntax-highlighting
 
-- name: Intel Mac - ~/.zprofile
+- name: ~/.zprofile
   blockinfile:
     path: "{{ ansible_env.HOME }}/.zprofile"
-    marker: "# {mark} - Intel Mac - ~/.zprofile - ANSIBLE MANAGED BLOCK"
+    marker: "# {mark} ~/.zprofile - ANSIBLE MANAGED BLOCK"
     create: yes
     owner: "{{ ansible_env.USER }}"
     mode: 0600
     block: |
+      # Set architecture-specific brew share path.
+      arch_name="$(uname -m)"
+      if [ "${arch_name}" = "x86_64" ]; then
+          share_path="/usr/local/share"
+      elif [ "${arch_name}" = "arm64" ]; then
+          share_path="/opt/homebrew/share"
+      else
+          echo "Unknown architecture: ${arch_name}"
+      fi
+
       # custom greeting
       echo Welcome back $(whoami)!
       echo Uptime: $(uptime)
@@ -27,39 +37,11 @@
       export CLICOLOR=1
 
       # enable zsh-autosuggestions
-      source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+      source ${share_path}/zsh-autosuggestions/zsh-autosuggestions.zsh
 
       # enable zsh-syntax-highlighting
-      source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+      source ${share_path}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
       # enable zsh-completions
       autoload -Uz compinit
       compinit
-  when: ansible_facts['architecture'] != "arm64" and ansible_facts['os_family'] == "Darwin"
-
-- name: Apple Silicon - ~/.zprofile
-  blockinfile:
-    path: "{{ ansible_env.HOME }}/.zprofile"
-    marker: "# {mark} - Apple Silicon - ~/.zprofile - ANSIBLE MANAGED BLOCK"
-    create: yes
-    owner: "{{ ansible_env.USER }}"
-    mode: 0600
-    block: |
-      # custom greeting
-      echo Welcome back $(whoami)!
-      echo Uptime: $(uptime)
-      echo IP: $(ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -d\  -f2)
-
-      # enable dircolors
-      export CLICOLOR=1
-
-      # enable zsh-autosuggestions
-      source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-      # enable zsh-syntax-highlighting
-      source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-      # enable zsh-completions
-      autoload -Uz compinit
-      compinit
-  when: ansible_facts['architecture'] == "arm64" and ansible_facts['os_family'] == "Darwin"

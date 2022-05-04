@@ -31,6 +31,17 @@
       # set promt
       export PS1=% PROMPT='%n @ %~ %# '
 
+      ### aliases ###
+
+      # suffix aliases
+      alias -s md=subl
+      alias -s nix=subl
+
+      # revert last n commits
+      grv() {
+          git reset --soft HEAD~$1
+      }
+
       # custom greeting
       echo Welcome back $(whoami)!
       echo Uptime: $(uptime)

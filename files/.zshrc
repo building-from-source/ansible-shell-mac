@@ -38,3 +38,8 @@ source ${share_path}/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # enable zsh-syntax-highlighting
 source ${share_path}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# enable SSH via gpg-agent
+export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent

@@ -8,9 +8,6 @@ else
     echo "Unknown architecture: ${arch_name}"
 fi
 
-# set promt
-export PS1=% PROMPT='%n @ %~ %# '
-
 ### aliases ###
 
 # suffix aliases
@@ -34,6 +31,11 @@ export HOMEBREW_NO_ANALYTICS=1
 
 # Tell homebrew to not autoupdate every single time I run it (just once a week).
 export HOMEBREW_AUTO_UPDATE_SECS=604800
+
+### ZSH ###
+
+# set promt
+export PS1=% PROMPT='%n @ %~ %# '
 
 # enable dircolors
 export CLICOLOR=1

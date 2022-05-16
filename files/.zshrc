@@ -27,6 +27,11 @@ echo Welcome back $(whoami)!
 echo Uptime: $(uptime)
 echo IP: $(ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -d\  -f2)
 
+### Homebrew ###
+
+# tell homebrew to disable analytics
+export HOMEBREW_NO_ANALYTICS=1
+
 # Tell homebrew to not autoupdate every single time I run it (just once a week).
 export HOMEBREW_AUTO_UPDATE_SECS=604800
 

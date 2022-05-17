@@ -19,6 +19,29 @@ grv() {
     git reset --soft HEAD~$1
 }
 
+# open current git reopository on github.com
+gh() {
+
+    # get remote url of current reopository
+    url=$(git config --get remote.origin.url)
+    echo $url
+
+    # when git is using https
+    # just open the url in the browser
+    if [[ $url = https://github.com/*.git ]]; then
+        github_url=$url
+        open $github_url
+
+    # when git is using ssh
+    # replace git@github.com: -> https://github.com/
+    # and open the url in the browser
+    elif [[ $url = git@github.com:*.git ]]; then
+        github_url=$(echo $url | sed -e 's/git@github.com:/https:\/\/github.com\//')
+        open $github_url
+
+    fi
+}
+
 # custom greeting
 echo Welcome back $(whoami)!
 echo Uptime: $(uptime)

@@ -11,7 +11,7 @@
     - zsh-syntax-highlighting
 
 - name: .zshrc
-  file:
+  ansible.builtin.file:
     src: "{{ ansible_env.PWD }}/roles/ansible-shell-mac/files/.zshrc"
     path: "{{ ansible_env.HOME }}/.zshrc"
     state: link

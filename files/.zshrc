@@ -21,24 +21,7 @@ grv() {
 
 # open current git reopository on github.com
 gh() {
-    # get remote url of current reopository
-    url=$(git config --get remote.origin.url)
-    echo "$url"
-
-    # when git is using https,
-    # just take the url as it is
-    if [[ $url = https://github.com/*.git ]]; then
-        github_url=$url
-    
-    # when git is using ssh
-    # replace git@github.com: -> https://github.com/
-    # and set it as $github_url
-    elif [[ $url = git@github.com:*.git ]]; then
-        github_url=$(echo "$url" | sed -e 's/git@github.com:/https:\/\/github.com\//')
-    fi
-
-    # open url in browser
-    open "$github_url"
+    open $(git config --get remote.origin.url | sed -e 's/\(.*\)git@\(.*\):[0-9\/]*/https:\/\/\2\//g')
 }
 
 # custom greeting

@@ -51,6 +51,12 @@ source ${share_path}/zsh-autosuggestions/zsh-autosuggestions.zsh
 # enable zsh-syntax-highlighting
 source ${share_path}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+### GOLANG ###
+export GOPATH=$HOME/golang
+export GOROOT=/opt/homebrew/Cellar/go/$(go version | { read _ _ v _; echo ${v#go}; })/libexec
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
+
 # BEGIN - enable yubikey - ANSIBLE MANAGED BLOCK
 # enable SSH via gpg-agent
 export GPG_TTY="$(tty)"

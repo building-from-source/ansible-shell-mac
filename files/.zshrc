@@ -53,6 +53,13 @@ source ${share_path}/zsh-autosuggestions/zsh-autosuggestions.zsh
 # enable zsh-syntax-highlighting
 source ${share_path}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+  autoload -Uz compinit
+  compinit
+fi
+
 ### GOLANG ###
 export GOPATH=$HOME/golang
 export GOROOT=/opt/homebrew/Cellar/go/$(go version | { read _ _ v _; echo ${v#go}; })/libexec

@@ -10,6 +10,12 @@
     - zsh-completions
     - zsh-syntax-highlighting
 
+- name: clone oh-my-zsh
+  git:
+    repo: "https://github.com/ohmyzsh/ohmyzsh.git"
+    dest: "{{ ansible_env.HOME + '/.oh-my-zsh' }}"
+    update: yes
+
 - name: .zshrc
   ansible.builtin.file:
     src: "{{ ansible_env.PWD }}/roles/ansible-shell-mac/files/.zshrc"

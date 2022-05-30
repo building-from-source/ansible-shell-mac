@@ -44,9 +44,6 @@ fi
 
 ### ZSH ###
 
-# set promt
-export PS1=% PROMPT='%n @ %~ %# '
-
 # enable dircolors
 export CLICOLOR=1
 
@@ -68,3 +65,15 @@ export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
 # END - enable yubikey - ANSIBLE MANAGED BLOCK
+
+### oh-my-zsh ###
+
+# https://github.com/ohmyzsh/ohmyzsh/tree/master/themes
+ZSH_THEME="robbyrussell"
+
+# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
+plugins=()
+
+# Path to oh-my-zsh installation
+export ZSH="$HOME/.oh-my-zsh"
+source $ZSH/oh-my-zsh.sh

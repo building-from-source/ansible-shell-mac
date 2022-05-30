@@ -30,19 +30,20 @@
   ansible.builtin.git:
     repo: "https://github.com/ohmyzsh/ohmyzsh.git"
     dest: "{{ ansible_env.HOME }}/.git/.oh-my-zsh"
+    version: master
 
-- name: clone powerline/fonts
-  ansible.builtin.git:
-    repo: "https://github.com/powerline/fonts"
-    dest: "{{ ansible_env.HOME }}/.git/powerline-fonts"
+# - name: clone powerline/fonts
+#   ansible.builtin.git:
+#     repo: "https://github.com/powerline/fonts"
+#     dest: "{{ ansible_env.HOME }}/.git/powerline-fonts"
 
-- name: link SourceCodePro powerline fonts
-  ansible.builtin.file:
-    src: "{{ ansible_env.HOME }}/.git/powerline-fonts/{{ item }}"
-    path: "{{ ansible_env.HOME }}/Library/Fonts/{{ item }}"
-    state: link
-  loop:
-    - "SourceCodePro"
+# - name: link SourceCodePro powerline fonts
+#   ansible.builtin.file:
+#     src: "{{ ansible_env.HOME }}/.git/powerline-fonts/{{ item }}"
+#     path: "{{ ansible_env.HOME }}/Library/Fonts/{{ item }}"
+#     state: link
+#   loop:
+#     - "SourceCodePro"
 
 - name: .zshrc
   ansible.builtin.file:

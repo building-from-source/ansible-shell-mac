@@ -76,7 +76,7 @@ gpgconf --launch gpg-agent
 ### oh-my-zsh ###
 
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/themes/
-ZSH_THEME="robbyrussell"
+ZSH_THEME="agnoster"
 
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
 plugins=()

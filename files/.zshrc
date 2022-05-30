@@ -75,8 +75,9 @@ gpgconf --launch gpg-agent
 
 ### oh-my-zsh ###
 
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/themes
-ZSH_THEME="robbyrussell"
+# https://github.com/ohmyzsh/ohmyzsh/blob/master/themes/agnoster.zsh-theme
+# need to enable powerline font!
+ZSH_THEME="agnoster"
 
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
 plugins=()

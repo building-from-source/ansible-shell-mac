@@ -1,6 +1,22 @@
 ---
 # tasks file for ansible-shell-mac
 
+- name: Create ~/.git if directory does not exist
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.git"
+    state: directory
+    mode: 0700
+
+- name: Ensure taps
+  homebrew_tap:
+    name: "homebrew/cask-fonts"
+    state: "present"
+
+- name: Ensure zsh fonts are installed
+  homebrew_cask:
+    name: "font-hack-nerd-font"
+    state: "present"
+
 - name: Ensure zsh dependencies are installed
   homebrew:
     name: "{{ item }}"
@@ -13,8 +29,12 @@
 - name: clone oh-my-zsh
   git:
     repo: "https://github.com/ohmyzsh/ohmyzsh.git"
-    dest: "{{ ansible_env.HOME + '/.oh-my-zsh' }}"
-    update: yes
+    dest: "{{ ansible_env.HOME }}/.git/.oh-my-zsh"
+
+- name: clone powerline/fonts
+  git:
+    repo: "https://github.com/powerline/fonts"
+    dest: "{{ ansible_env.HOME }}/.git/powerline-fonts"
 
 - name: .zshrc
   ansible.builtin.file:

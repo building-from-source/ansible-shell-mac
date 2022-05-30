@@ -82,5 +82,5 @@ ZSH_THEME="robbyrussell"
 plugins=()
 
 # Path to oh-my-zsh installation
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="$HOME/.git/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh

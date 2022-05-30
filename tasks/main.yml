@@ -27,14 +27,22 @@
     - zsh-syntax-highlighting
 
 - name: clone oh-my-zsh
-  git:
+  ansible.builtin.git:
     repo: "https://github.com/ohmyzsh/ohmyzsh.git"
     dest: "{{ ansible_env.HOME }}/.git/.oh-my-zsh"
 
 - name: clone powerline/fonts
-  git:
+  ansible.builtin.git:
     repo: "https://github.com/powerline/fonts"
     dest: "{{ ansible_env.HOME }}/.git/powerline-fonts"
+
+- name: link SourceCodePro powerline fonts
+  ansible.builtin.file:
+    src: "{{ ansible_env.HOME }}/.git/powerline-fonts/{{ item }}"
+    path: "{{ ansible_env.HOME }}/Library/Fonts/{{ item }}"
+    state: link
+  loop:
+    - "SourceCodePro"
 
 - name: .zshrc
   ansible.builtin.file:

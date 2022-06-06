@@ -24,6 +24,10 @@ gh() {
     open $(git config --get remote.origin.url | sed -e 's/\(.*\)git@\(.*\):[0-9\/]*/https:\/\/\2\//g')
 }
 
+db() {
+    open https://reiseauskunft.bahn.de/
+}
+
 # custom greeting
 echo Welcome back $(whoami)!
 echo Uptime: $(uptime)

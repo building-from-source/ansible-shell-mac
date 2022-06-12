@@ -9,13 +9,13 @@
 
 - name: Ensure taps
   homebrew_tap:
-    name: "homebrew/cask-fonts"
-    state: "present"
+    name: homebrew/cask-fonts
+    state: present
 
 - name: Ensure zsh fonts are installed
   homebrew_cask:
-    name: "font-hack-nerd-font"
-    state: "present"
+    name: font-hack-nerd-font
+    state: present
 
 - name: Ensure zsh dependencies are installed
   homebrew:
@@ -28,7 +28,7 @@
 
 - name: clone oh-my-zsh
   ansible.builtin.git:
-    repo: "https://github.com/ohmyzsh/ohmyzsh.git"
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
     dest: "{{ ansible_env.HOME }}/.git/.oh-my-zsh"
     version: master
 

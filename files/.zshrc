@@ -21,7 +21,16 @@ grv() {
 
 # open current git reopository on github.com
 gh() {
-    open $(git config --get remote.origin.url | sed -e 's/\(.*\)git@\(.*\):[0-9\/]*/https:\/\/\2\//g')
+    repo_url=$(git config --get remote.origin.url | sed -e 's/\(.*\)git@\(.*\):[0-9\/]*/https:\/\/\2\//g')
+    echo $repo_url
+    open --url $repo_url
+}
+
+# open my repository overview
+repos() {
+    github_url="https://github.com/$(git config --get user.name)?tab=repositories"
+    echo $github_url
+    open --url $github_url
 }
 
 db() {

@@ -19,6 +19,16 @@ grv() {
     git reset --soft HEAD~$1
 }
 
+# preview files that would get deleted
+clean() {
+    git clean -xdn
+}
+
+# execute
+destroy() {
+    git clean -xdf
+}
+
 # open current git reopository on github.com
 gh() {
     repo_url=$(git config --get remote.origin.url | sed -e 's/\(.*\)git@\(.*\):[0-9\/]*/https:\/\/\2\//g')

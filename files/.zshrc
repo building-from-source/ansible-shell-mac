@@ -76,6 +76,9 @@ source ${share_path}/zsh-autosuggestions/zsh-autosuggestions.zsh
 # enable zsh-syntax-highlighting
 source ${share_path}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# add latex to path
+eval "$(/usr/libexec/path_helper)"
+
 if type brew &>/dev/null
 then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"

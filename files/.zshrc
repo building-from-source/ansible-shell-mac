@@ -47,6 +47,24 @@ db() {
     open https://reiseauskunft.bahn.de/
 }
 
+venv() {
+    # check if not in virtualenv
+    if [ -z "$VIRTUAL_ENV" ]; then
+        echo "Not in virtualenv..."
+        # check if .venv exists
+        if [ ! -d .venv ]; then
+            # create virtualenv
+            echo "Creating virtual environment..."
+            python3 -m venv .venv
+        fi
+        # activate virtualenv
+        echo "Activating virtual environment..."
+        source .venv/bin/activate
+    else
+        echo "Already in virtualenv..."
+    fi
+}
+
 # custom greeting
 echo Welcome back $(whoami)!
 echo Uptime: $(uptime)

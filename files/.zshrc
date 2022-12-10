@@ -36,6 +36,23 @@ gh() {
     open --url $repo_url
 }
 
+git_filediff(){
+    # Check if the script is running inside a git repository
+    if ! git rev-parse --git-dir > /dev/null 2>&1; then
+      echo "Error: this script must be run inside a git repository"
+      exit 1
+    fi
+
+    # Check if the file exists in the repository
+    if [ ! -f "$1" ]; then
+      echo "Error: file not found in the repository"
+      exit 1
+    fi
+
+    # Get the diff of the file over the last 14 days
+    git diff --no-commit-id HEAD@{14.days.ago} "$1"
+}
+
 # open my repository overview
 repos() {
     github_url="https://github.com/$(git config --get user.name)?tab=repositories"

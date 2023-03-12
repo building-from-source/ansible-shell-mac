@@ -82,6 +82,10 @@ venv() {
     fi
 }
 
+rcode () {
+    code --remote ssh-remote+$1 /home/$(whoami)/$2
+}
+
 # custom greeting
 echo Welcome back $(whoami)!
 echo Uptime: $(uptime)

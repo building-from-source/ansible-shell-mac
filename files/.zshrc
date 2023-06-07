@@ -10,10 +10,6 @@ fi
 
 ### aliases ###
 
-# suffix aliases
-alias -s md=subl
-alias -s nix=subl
-
 # revert last n commits
 grv() {
     git reset --soft HEAD~$1
@@ -89,7 +85,6 @@ rcode () {
 # custom greeting
 echo Welcome back $(whoami)!
 echo Uptime: $(uptime)
-echo IP: $(ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -d\  -f2)
 
 ### Homebrew ###
 
@@ -98,11 +93,6 @@ export HOMEBREW_NO_ANALYTICS=1
 
 # Tell homebrew to not autoupdate every single time I run it (just once a week).
 export HOMEBREW_AUTO_UPDATE_SECS=604800
-
-### Nix ###
-if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-. '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-fi
 
 ### ZSH ###
 
@@ -115,29 +105,6 @@ source ${share_path}/zsh-autosuggestions/zsh-autosuggestions.zsh
 # enable zsh-syntax-highlighting
 source ${share_path}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# add latex to path
-eval "$(/usr/libexec/path_helper)"
-
-if type brew &>/dev/null
-then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-  autoload -Uz compinit
-  compinit
-fi
-
-### GOLANG ###
-export GOPATH=$HOME/golang
-export GOROOT=/opt/homebrew/Cellar/go/$(go version | { read _ _ v _; echo ${v#go}; })/libexec
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
-
-# BEGIN - enable yubikey - ANSIBLE MANAGED BLOCK
-# enable SSH via gpg-agent
-export GPG_TTY="$(tty)"
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-gpgconf --launch gpg-agent
-# END - enable yubikey - ANSIBLE MANAGED BLOCK
-
 ### oh-my-zsh ###
 
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/themes/
@@ -149,3 +116,20 @@ plugins=()
 # Path to oh-my-zsh installation
 export ZSH="$HOME/.git/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
+
+# add latex to path
+eval "$(/usr/libexec/path_helper)"
+
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+  autoload -Uz compinit
+  compinit
+fi
+
+# BEGIN - enable yubikey - ANSIBLE MANAGED BLOCK
+# enable SSH via gpg-agent
+export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
+# END - enable yubikey - ANSIBLE MANAGED BLOCK

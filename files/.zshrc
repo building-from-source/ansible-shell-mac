@@ -127,6 +127,10 @@ then
   compinit
 fi
 
+### h
+export PATH=$PATH:$HOME/.git/h
+eval "$(h --setup ~/repos)"
+
 # BEGIN - enable yubikey - ANSIBLE MANAGED BLOCK
 # enable SSH via gpg-agent
 export GPG_TTY="$(tty)"
